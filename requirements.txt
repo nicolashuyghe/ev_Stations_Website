@@ -14,5 +14,5 @@ requests
 openrouteservice
 geocoder
 haversine
-folium_static
+streamlit_folium
 datetime
