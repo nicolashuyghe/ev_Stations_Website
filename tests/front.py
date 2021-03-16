@@ -16,7 +16,7 @@ st.set_page_config(layout="centered")
 # Données 91 stations:
 
 
-data = pd.read_csv('info_stations.csv')
+data = pd.read_csv('tests/info_stations.csv')
 dist_info = data.copy()
 dist_info['distance'] = -1.0
 
@@ -29,6 +29,14 @@ dist_info['distance'] = -1.0
 
 
 # local_css("test.css")
+
+# Couleur route
+
+
+def style_function(color):   # To style data
+    return lambda feature: dict(color=color,
+                                opacity=0.5,
+                                weight=4,)
 
 
 st.sidebar.markdown("## Itinéraire")
@@ -118,7 +126,7 @@ s_id = dist_info['s_id']
 nbr_ter = []
 
 for i in range(3):
-    rep = requests.get(f'https://ev-stations-docker-image-gcp-dzi5homvkq-ew.a.run.app/predict?station_id={s_id[i][1:]}&year={year}&month={month}&day={day}&hour=0&minute=0').json()
+    rep = requests.get(f'https://ev-stations-docker-image-gcp-2-dzi5homvkq-ew.a.run.app/predict?station_id={s_id[i][1:]}&year={year}&month={month}&day={day}&hour=0&minute=0').json()
     if rep['number_terminals_available'] == 0:
         nbr_ter.append(0)
         folium.Marker([dist_info['latitude'][i], dist_info['longitude'][i]],
@@ -175,14 +183,14 @@ s3_route_pied = client.directions(coordinates=[[station3[0], station3[1]], [dest
 # Calcul temps par station
 
 
-tmp_s1_voiture = (s1_route_voitu['features'][0]['properties']['summary']['duration'])/60
-tmp_s1_pied = (s1_route_pied['features'][0]['properties']['summary']['duration'])/60
+tmp_s1_voiture = round((s1_route_voitu['features'][0]['properties']['summary']['duration'])/60)
+tmp_s1_pied = round((s1_route_pied['features'][0]['properties']['summary']['duration'])/60)
 
-tmp_s2_voiture = (s2_route_voitu['features'][0]['properties']['summary']['duration'])/60
-tmp_s2_pied = (s2_route_pied['features'][0]['properties']['summary']['duration'])/60
+tmp_s2_voiture = round((s2_route_voitu['features'][0]['properties']['summary']['duration'])/60)
+tmp_s2_pied = round((s2_route_pied['features'][0]['properties']['summary']['duration'])/60)
 
-tmp_s3_voiture = (s3_route_voitu['features'][0]['properties']['summary']['duration'])/60
-tmp_s3_pied = (s3_route_pied['features'][0]['properties']['summary']['duration'])/60
+tmp_s3_voiture = round((s3_route_voitu['features'][0]['properties']['summary']['duration'])/60)
+tmp_s3_pied = round((s3_route_pied['features'][0]['properties']['summary']['duration'])/60)
 
 tmp_s1 = tmp_s1_voiture + tmp_s1_pied
 tmp_s2 = tmp_s2_voiture + tmp_s2_pied
