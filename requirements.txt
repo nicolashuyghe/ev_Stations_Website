@@ -6,7 +6,7 @@ wheel>=0.29
 
 
 pandas
-
+numpy
 
 streamlit
 folium
