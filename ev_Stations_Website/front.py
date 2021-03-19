@@ -18,7 +18,22 @@ st.markdown('<style>.stAlert{display:none;}</style>', unsafe_allow_html=True)
 
 CSS = """
 .st-dn {
-    border-color: rgb(0,0,138);
+    border-color: rgb(46,172,109);
+}
+.st-eg {
+    border-color: rgb(46,172,109);
+}
+.st-ef {
+    border-color: rgb(46,172,109);
+}
+.st-ee {
+    border-color: rgb(46,172,109);
+}
+.st-ed {
+    border-color: rgb(46,172,109);
+}
+.st-ds {
+    background-color: rgb(46,172,109);
 }
 .css-1y0tads {
     flex: 1 1 0%;
@@ -32,7 +47,7 @@ CSS = """
     max-width: 730px;
 }
 .css-1aumxhk {
-    background-color: rgb(0,0,138);
+    background-color: rgb(46,172,109);
     background-image: linear-gradient(rgb(240, 242, 246), rgb(250, 250, 250));
     background-attachment: fixed;
     flex-shrink: 0;
@@ -77,7 +92,7 @@ start_longitude = geo_start.json['lng']
 start_latitude = geo_start.json['lat']
 
 # Destination
-dest_address = st.sidebar.text_input("Destination", "156 rue marcadet, 75018 Paris")
+dest_address = st.sidebar.text_input("Destination", "Le Palais de L'Élysée")
 geo_dest = geocoder.mapbox(dest_address, proximity=paris_coord, key=map_box_key)
 dest_longitude = geo_dest.json['lng']
 dest_latitude = geo_dest.json['lat']
@@ -91,7 +106,7 @@ with row2_1:
     date_start = date_inputer.date_input("Time of departure", datetime.date(2021, 3, 19))
 with row2_2:
     time_inputer = st.empty()
-    time_start = time_inputer.time_input("Hour of departure", datetime.time(hour=20, minute=00))
+    time_start = time_inputer.time_input("Hour of departure", datetime.time(hour=21, minute=00))
 
 # Terminal choice
 terminal_choice = st.sidebar.radio('Select your terminal type', ['Standard charging', 'Fast charging', 'Both'])
@@ -100,7 +115,7 @@ terminal_choice = st.sidebar.radio('Select your terminal type', ['Standard charg
 row2_1, row2_2 = st.sidebar.beta_columns(2)
 with row2_1:
     nb_option_inputer = st.empty()
-    n = nb_option_inputer.number_input("Number of options", min_value= 3, max_value= 10, step=1)
+    n = nb_option_inputer.number_input("Number of options", min_value= 3, max_value= 5, step=1)
 with row2_2:
     option_choice_inputer = st.empty()
     option_choice = option_choice_inputer.selectbox("Choose option", range(1, n+1))
@@ -142,7 +157,7 @@ center_lat = (start_latitude + dest_latitude) / 2
 dist_zoom = haversine(start_pos, dest_pos)
 
 # Display map
-map_directions = folium.Map(location=[center_lat, center_long], zoom_start=13+(1/(dist_zoom)))
+map_directions = folium.Map(location=[center_lat, center_long], zoom_start=13+(1/(dist_zoom*2)))
 folium.TileLayer('cartodbpositron').add_to(map_directions)
 
 # Add markers for start and destination on the map
