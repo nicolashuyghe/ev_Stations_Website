@@ -10,7 +10,7 @@ from streamlit_folium import folium_static
 from haversine import haversine
 
 map_box_key = 'pk.eyJ1Ijoibmh1eWdoZSIsImEiOiJja21lbjUyemUyd2w4MnlrbjMwMXkxMXJoIn0.cBH6JH_95xnmzms6phgI_g'
-ors_key = '5b3ce3597851110001cf6248f94c4c0b04c64137b28f69cbff5fe979'
+ors_key = '5b3ce3597851110001cf624830305b9b81ae4d4483dc86b374a6cc40'
 
 st.set_page_config(layout="centered")
 
